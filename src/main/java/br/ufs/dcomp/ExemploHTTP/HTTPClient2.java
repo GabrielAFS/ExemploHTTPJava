@@ -24,6 +24,7 @@ public class HTTPClient2
         
         String msg = "GET /sites/default/files/logo_unicamp_novo_0.png HTTP/1.1" + CRLF +
                      "Host: www.ic.unicamp.br" + CRLF +
+                     "Connection: close" + CRLF + 
                      CRLF;
                      
         out.write(msg.getBytes());
@@ -48,13 +49,13 @@ public class HTTPClient2
          */    
 
         // Arquivo onde o conteúdo da resposta será escrito
-        File file = new File("/home/ubuntu/environment/sistemas-distribuidos/ExemploHTTPJava/logo_unicamp_novo_0.png");
+        File file = new File("/home/ubuntu/environment/SD/ExemploHTTPJava/logo_unicamp_novo_0.png");
         FileOutputStream fos = new FileOutputStream(file);
         
         System.out.println("Downloading...");
-        byte[] buf = new byte[1000];
+        byte[] buf = new byte[1024];
         int len;
-        while ((len = in.read(buf)) > 0){
+        while ((len = in.read(buf)) != -1){
             fos.write(buf, 0, len);
             fos.flush();
             System.out.println(len);
